@@ -1,0 +1,12 @@
+{
+  "name": "public-transport-ticketing-system",
+  "version": "1.0.0",
+  "description": "The Public Transport Ticketing System aims to provide an efficient mode of online payment for bus ticket booking, enhancing the overall user experience in public transportation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
