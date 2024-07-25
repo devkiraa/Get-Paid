@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styles.css">
+  <title>UPI Payment</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Kerala Transport UPI Payment</h1>
+    <button id="pay-button">Pay with UPI</button>
+  </div>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    document.getElementById('pay-button').onclick = async function () {
+      const response = await fetch('/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: 100 }) // Example amount
+      });
+
+      const order = await response.json();
+      
+      const options = {
+        key: '<%= process.env.RAZORPAY_KEY_ID %>',
+        amount: order.amount,
+        currency: order.currency,
+        order_id: order.id,
+        handler: function (response) {
+          alert('Payment successful');
+        },
+        prefill: {
+          name: 'Passenger Name',
+          email: 'passenger@example.com',
+          contact: '1234567890'
+        },
+        theme: {
+          color: '#3399cc'
+        }
+      };
+
+      const rzp1 = new Razorpay(options);
+      rzp1.open();
+    }
+  </script>
+</body>
+</html>
