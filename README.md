@@ -1,7 +1,3 @@
-Here's a sample GitHub README for your project:
-
----
-
 # Kerala Transport Bus UPI Payment System
 
 ## Overview
