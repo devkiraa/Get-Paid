@@ -1,49 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/styles.css">
-  <title>UPI Payment</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticketing</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-  <div class="container">
-    <h1>Kerala Transport UPI Payment</h1>
-    <button id="pay-button">Pay with UPI</button>
-  </div>
-
-  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  <script>
-    document.getElementById('pay-button').onclick = async function () {
-      const response = await fetch('/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 100 }) // Example amount
-      });
-
-      const order = await response.json();
-      
-      const options = {
-        key: '<%= process.env.RAZORPAY_KEY_ID %>',
-        amount: order.amount,
-        currency: order.currency,
-        order_id: order.id,
-        handler: function (response) {
-          alert('Payment successful');
-        },
-        prefill: {
-          name: 'Passenger Name',
-          email: 'passenger@example.com',
-          contact: '1234567890'
-        },
-        theme: {
-          color: '#3399cc'
-        }
-      };
-
-      const rzp1 = new Razorpay(options);
-      rzp1.open();
-    }
-  </script>
+<body class="bg-gray-100 flex justify-center items-center h-screen">
+    <div class="bg-white p-8 rounded shadow-md">
+        <h1 class="text-xl font-bold mb-4">Kerala Transport Ticketing</h1>
+        <form id="ticketForm">
+            <div class="mb-4">
+                <label class="block">From:</label>
+                <select name="from" class="w-full p-2 border border-gray-300 rounded" required>
+                    <!-- Add options dynamically -->
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block">To:</label>
+                <select name="to" class="w-full p-2 border border-gray-300 rounded" required>
+                    <!-- Add options dynamically -->
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block">Number of Passengers:</label>
+                <input type="number" name="passengers" min="1" class="w-full p-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-4">
+                <label class="block">Payment Method:</label>
+                <select name="payment" class="w-full p-2 border border-gray-300 rounded">
+                    <option value="UPI">UPI</option>
+                    <option value="Mobile">Mobile</option>
+                    <option value="Cash">Cash</option>
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
+        </form>
+    </div>
 </body>
 </html>
